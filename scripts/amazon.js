@@ -1,4 +1,4 @@
-const products = [{
+/* const products = [{
     image: 'images/products/athletic-cotton-socks-6-pairs.jpg',
     name: 'Black and Gray Athletic Cotton Socks - 6 Pairs',
     rating:{
@@ -23,9 +23,18 @@ const products = [{
       count: 56
     },
     priceCents: 799
+  }, {
+    image: 'images/products/black-2-slot-toaster.jpg',
+    name: '2 Slot Toaster - Black',
+    rating: {
+      stars: 5,
+      count: 2197
+    },
+    priceCents: 1899
   }
+
   
-  ];
+  ]; */
 
   let productsHTML = ''; /* By initializing productsHTML as an empty string, you set up a base to which you can append HTML content later in the code. It acts as a container that will eventually hold the complete HTML structure for all the products. */
   
