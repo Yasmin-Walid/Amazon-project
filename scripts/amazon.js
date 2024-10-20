@@ -1,4 +1,4 @@
-import {cart} from '../data/cart.js';
+import {cart, addToCart} from '../data/cart.js';
 import {products} from '../data/products.js';
 
 /* const products = [{
@@ -103,35 +103,24 @@ products.forEach((product) => {
 document.querySelector('.js-products-grid').
   innerHTML = productsHTML;
 
+  function updateCartQuantity (){
+  let cartQuantity = 0; /*  This variable is declared and initialized to the value `0`.
+  It likely keeps track of the number of items*/
+ cart.forEach((cartItem) => {
+   cartQuantity += cartItem.quantity;
+   document.querySelector('.js-cart-quantity')/* to add the cartQuantity on the web page */
+   .innerHTML = cartQuantity;
+
+ });
+}
+
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
     button.addEventListener('click', () => {
       const productId = button.dataset.productId; /* the productID gets converted from kebab-case to camelCase */
+      addToCart (productId);
+      updateCartQuantity ();
 
-      let matchingItem; /* This variable is declared but not initialized (i.e., no value is assigned at the time of declaration).
-       It is likely meant to store a value that will be assigned later in the code. Since it's declared using `let` without an initial value, it will be `undefined` until it is assigned a value */
 
-      cart.forEach((item) => {
-        if (productId === item.productId) {
-          matchingItem = item;
-        }
-      });
-
-      if (matchingItem) {  /* means that it is a thruthy value */
-        matchingItem.quantity += 1;  /* matchingItem = matchingItem + 1 */
-      } else {
-        cart.push({
-          productId: productId,
-          quantity: 1
-        });
-      }
-
-      let cartQuantity = 0; /*  This variable is declared and initialized to the value `0`.
-       It likely keeps track of the number of items in a shopping cart, hence the name "cartQuantity." */
-      cart.forEach((item) => {
-        cartQuantity += item.quantity
-      });
-      document.querySelector('.js-cart-quantity')/* to add the cartQuantity on the web page */
-        .innerHTML = cartQuantity;
     })
   });
