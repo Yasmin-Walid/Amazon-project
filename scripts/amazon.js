@@ -1,3 +1,5 @@
+import {cart} from '../data/cart.js';
+
 /* const products = [{
     image: 'images/products/athletic-cotton-socks-6-pairs.jpg',
     name: 'Black and Gray Athletic Cotton Socks - 6 Pairs',
@@ -103,9 +105,10 @@ document.querySelector('.js-products-grid').
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
     button.addEventListener('click', () => {
-      const productId = button.dataset.productId; /* this productID gets converted from kebab-case to camelCase */
+      const productId = button.dataset.productId; /* the productID gets converted from kebab-case to camelCase */
 
-      let matchingItem;
+      let matchingItem; /* This variable is declared but not initialized (i.e., no value is assigned at the time of declaration).
+       It is likely meant to store a value that will be assigned later in the code. Since it's declared using `let` without an initial value, it will be `undefined` until it is assigned a value */
 
       cart.forEach((item) => {
         if (productId === item.productId) {
@@ -113,19 +116,21 @@ document.querySelectorAll('.js-add-to-cart')
         }
       });
 
-      if (matchingItem) {
-        matchingItem.quantity += 1;
+      if (matchingItem) {  /* means that it is a thruthy value */
+        matchingItem.quantity += 1;  /* matchingItem = matchingItem + 1 */
       } else {
         cart.push({
           productId: productId,
           quantity: 1
         });
       }
-      let cartQuantity = 0;
+
+      let cartQuantity = 0; /*  This variable is declared and initialized to the value `0`.
+       It likely keeps track of the number of items in a shopping cart, hence the name "cartQuantity." */
       cart.forEach((item) => {
         cartQuantity += item.quantity
       });
-      document.querySelector('.js-cart-quantity')
+      document.querySelector('.js-cart-quantity')/* to add the cartQuantity on the web page */
         .innerHTML = cartQuantity;
     })
   });
