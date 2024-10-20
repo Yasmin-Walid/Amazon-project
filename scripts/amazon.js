@@ -36,14 +36,14 @@
   
   ]; */
 
-  let productsHTML = ''; /* By initializing productsHTML as an empty string, you set up a base to which you can append HTML content later in the code. It acts as a container that will eventually hold the complete HTML structure for all the products. */
-  
-  /* the role of the product parameter:  For each iteration, the current product object is passed to the callback function as the product parameter. This allows you to access the properties of the current product, such as image, name, rating, and priceCents. */
-  products.forEach ((product) => {
+let productsHTML = ''; /* By initializing productsHTML as an empty string, you set up a base to which you can append HTML content later in the code. It acts as a container that will eventually hold the complete HTML structure for all the products. */
 
-    /* productsHTML= productsHTML + '' */
+/* the role of the product parameter:  For each iteration, the current product object is passed to the callback function as the product parameter. This allows you to access the properties of the current product, such as image, name, rating, and priceCents. */
+products.forEach((product) => {
 
-    productsHTML+= `
+  /* productsHTML= productsHTML + '' */
+
+  productsHTML += `
             <div class="product-container">
             <div class="product-image-container">
               <img class="product-image"
@@ -56,7 +56,7 @@
   
             <div class="product-rating-container">
               <img class="product-rating-stars"
-                src="images/ratings/rating-${ product.rating.stars * 10}.png">
+                src="images/ratings/rating-${product.rating.stars * 10}.png">
               <div class="product-rating-count link-primary">
                 ${product.rating.count}
               </div>
@@ -88,15 +88,39 @@
               Added
             </div>
   
-            <button class="add-to-cart-button button-primary">
+            <button class="add-to-cart-button button-primary js-add-to-cart"
+            data-product-id = "${product.id}">
               Add to Cart
             </button>
           </div>
     `;
-  
-  });
-  console.log (productsHTML);
 
+});
 
-  document.querySelector('.js-products-grid').
+document.querySelector('.js-products-grid').
   innerHTML = productsHTML;
+
+document.querySelectorAll('.js-add-to-cart')
+  .forEach((button) => {
+    button.addEventListener('click', () => {
+      const productId = button.dataset.productId; /* this productID gets converted from kebab-case to camelCase */
+
+      let matchingItem;
+
+      cart.forEach((item) => {
+        if (productId === item.productId) {
+          matchingItem = item;
+        }
+      });
+
+      if (matchingItem) {
+        matchingItem.quantity += 1;
+      } else {
+        cart.push({
+          productId: productId,
+          quantity: 1
+        });
+      }
+
+    })
+  });
